@@ -28,17 +28,3 @@ output "managed_node_group_asg_name" {
   
 }
 
-# output "vpc-id" {
-#   value = data.terraform_remote_state.network.outputs.vpc_id
-  
-# }
-
-# output "vpc-cidr" {
-#   value = data.terraform_remote_state.network.outputs.vpc_cidr
-  
-# }
-
-# output "subnets" {
-#   value = data.terraform_remote_state.network.outputs.subnets
-  
-# }

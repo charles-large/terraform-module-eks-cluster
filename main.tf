@@ -5,9 +5,6 @@ provider "kubernetes" {
     api_version = "client.authentication.k8s.io/v1alpha1"
     args        = ["eks", "get-token", "--cluster-name", var.eks_cluster_name]
     command     = "aws"
-    # env = {
-    #   AWS_PROFILE = "work"
-    # }
   }
 }
 
@@ -19,9 +16,6 @@ provider "helm" {
     api_version = "client.authentication.k8s.io/v1alpha1"
     args        = ["eks", "get-token", "--cluster-name", var.eks_cluster_name]
     command     = "aws"
-    # env = {
-    #   AWS_PROFILE = "work"
-    # }
   }
   }
 }
@@ -38,10 +32,7 @@ module "eks_cluster" {
   vpc_id = var.vpc_id
 
   //EKS Cluster Networking
-  eks_cluster_subnets = var.vpc_subnets #data.terraform_remote_state.network.outputs.subnets
-  # eks_cluster_sg = #data.terraform_remote_state.network.outputs.eks_cluster_sg
-  
-  # depends_on = [data.terraform_remote_state.network.outputs]
+  eks_cluster_subnets = var.vpc_subnets 
 }
 
 module "managed_node_group" {
@@ -53,7 +44,7 @@ module "managed_node_group" {
   private_cluster = var.private_cluster
   
   //EKS Cluster Networking
-  eks_cluster_subnets = var.vpc_subnets #data.terraform_remote_state.network.outputs.subnets
+  eks_cluster_subnets = var.vpc_subnets 
   eks_cluster_sg = module.eks_cluster.eks_cluster_sg
   
   //Managed Node group settings
@@ -80,7 +71,7 @@ module "fargate" {
   private_cluster = var.private_cluster
   
   //EKS Cluster Networking
-  eks_cluster_subnets = var.vpc_subnets #data.terraform_remote_state.network.outputs.subnets
+  eks_cluster_subnets = var.vpc_subnets 
   eks_cluster_sg = module.eks_cluster.eks_cluster_sg
 
   depends_on = [module.eks_cluster]
@@ -96,7 +87,7 @@ module "kubernetes" {
   cluster_name = module.eks_cluster.cluster_id
   oidc-arn = module.eks_cluster.oidc-arn
   oidc-url = module.eks_cluster.oidc-url
-  vpc-id = var.vpc_id #data.terraform_remote_state.network.outputs.vpc_id
+  vpc-id = var.vpc_id 
 
   // Drivers
   efs-csi = false

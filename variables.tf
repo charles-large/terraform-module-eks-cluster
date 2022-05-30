@@ -84,24 +84,6 @@ variable "coredns"{
     default = true
 }
 
-
-
-# variable "deployment" {
-#   type = object({
-#     private_cluster = bool,
-#     fargate_cluster = bool
-#   })
-#   default = {
-#     fargate_cluster = true
-#     private_cluster = true
-#   }
-#   validation {
-#     condition = var.deployment.fargate_cluster && !var.deployment.private_cluster ?  false : true
-#     error_message = "Fargate is only support with private subnets. Enable private_cluster." 
-#   }
-# }
-
-
 // Private Cluster - If enabled, EKS will deploy ENIs and managed nodes in private subnets
 
 variable "private_cluster" {
@@ -223,14 +205,7 @@ variable "scaling_config" {
     desired_size = 2
     max_size     = 3
     min_size     = 2
-  }
-
-  # validation {
-  #   condition = alltrue([for o in var.scaling_config : o == number])
-  #   error_message = "Invalid value given for scaling_config. Values should be numbers."
-  # }
-
-  
+  } 
 }
 
 
