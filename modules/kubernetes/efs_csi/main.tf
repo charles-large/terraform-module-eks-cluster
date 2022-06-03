@@ -104,7 +104,7 @@ resource "helm_release" "efs_sc" {
   chart = "${path.module}/yaml_manifests/efs-sc"
   set {
     name = "efs_id"
-    value = var.efs-id
+    value = "fs-0fe05a7bfacdc72f3"
   }
   
 }
