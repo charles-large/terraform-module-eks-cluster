@@ -90,11 +90,11 @@ module "kubernetes" {
   vpc-id = var.vpc_id 
 
   // Drivers
-  efs-csi = false
-  ebs-csi = true
-  metric-server = true
-  aws-alb-controller = true
-  aws-fluent-bit = false
+  efs-csi = var.efs-csi
+  ebs-csi = var.ebs-csi
+  metric-server = var.metric-server
+  aws-alb-controller = var.aws-alb-controller
+  aws-fluent-bit = var.aws-fluent-bit
 
   depends_on = [
     module.fargate, module.managed_node_group
