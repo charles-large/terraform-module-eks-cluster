@@ -1,25 +1,3 @@
-# provider "kubernetes" {
-#   host                   = module.eks_cluster.endpoint
-#   cluster_ca_certificate = base64decode(module.eks_cluster.kubeconfig-certificate-authority-data)
-#   exec {
-#     api_version = "client.authentication.k8s.io/v1alpha1"
-#     args        = ["eks", "get-token", "--cluster-name", var.eks_cluster_name]
-#     command     = "aws"
-#   }
-# }
-
-# provider "helm" {
-#   kubernetes {
-#     host                   = module.eks_cluster.endpoint
-#     cluster_ca_certificate = base64decode(module.eks_cluster.kubeconfig-certificate-authority-data)
-#   exec {
-#     api_version = "client.authentication.k8s.io/v1alpha1"
-#     args        = ["eks", "get-token", "--cluster-name", var.eks_cluster_name]
-#     command     = "aws"
-#   }
-#   }
-# }
-
 module "eks_cluster" {
   source = "./modules/eks_cluster"
 
@@ -78,25 +56,3 @@ module "fargate" {
   
 }
 
-# module "kubernetes" {
-#   source = "./modules/kubernetes"
-#   region = var.region
-#   cluster_id = module.eks_cluster.cluster_id
-#   endpoint = module.eks_cluster.endpoint
-#   ca = module.eks_cluster.kubeconfig-certificate-authority-data
-#   cluster_name = module.eks_cluster.cluster_id
-#   oidc-arn = module.eks_cluster.oidc-arn
-#   oidc-url = module.eks_cluster.oidc-url
-#   vpc-id = var.vpc_id 
-
-#   // Drivers
-#   efs-csi = false
-#   ebs-csi = true
-#   metric-server = true
-#   aws-alb-controller = true
-#   aws-fluent-bit = false
-
-#   depends_on = [
-#     module.fargate, module.managed_node_group
-#   ]
-# }
